@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.label {
+  color: white;
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 18px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Neon Button */
+.neon-button {
+  position: relative;
+  display: inline-block;
+  padding: 15px 30px;
+  color: #03e9f4;
+  font-size: 18px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.5s;
+  letter-spacing: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.neon-button:hover {
+  background: #03e9f4;
+  color: #050801;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 200px #03e9f4;
+}
+
+.neon-button span {
+  position: absolute;
+  display: block;
+}
+
+.neon-button span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: neon1 1s linear infinite;
+  animation-delay: 0s;
+}
+
+@keyframes neon1 {
+  0% {
+    left: -100%;
+  }
+  50%, 100% {
+    left: 100%;
+  }
+}
+
+.neon-button span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #03e9f4);
+  animation: neon2 1s linear infinite;
+  animation-delay: 0.25s;
+}
+
+@keyframes neon2 {
+  0% {
+    top: -100%;
+  }
+  50%, 100% {
+    top: 100%;
+  }
+}
+
+.neon-button span:nth-child(3) {
+  right: -100%;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: neon3 1s linear infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes neon3 {
+  0% {
+    right: -100%;
+  }
+  50%, 100% {
+    right: 100%;
+  }
+}
+
+.neon-button span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: neon4 1s linear infinite;
+  animation-delay: 0.75s;
+}
+
+@keyframes neon4 {
+  0% {
+    bottom: -100%;
+  }
+  50%, 100% {
+    bottom: 100%;
+  }
+}
+
+/* Liquid Button */
+.liquid-button {
+  position: relative;
+  padding: 16px 30px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background: #7986cb;
+  border-radius: 50px;
+  overflow: hidden;
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.4s ease;
+  z-index: 1;
+}
+
+.liquid-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #3f51b5, #7986cb, #3949ab, #5c6bc0);
+  background-size: 400% 400%;
+  z-index: -1;
+  transition: all 0.5s ease;
+}
+
+.liquid-button:hover::before {
+  animation: gradient 10s ease infinite;
+}
+
+.liquid-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.liquid-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s ease;
+}
+
+.liquid-button:active::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition: all 0s ease;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 3D Button */
+.button-3d {
+  position: relative;
+  background: #e74c3c;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 180px;
+  height: 60px;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 0 #c0392b;
+  transition: all 0.1s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 1px;
+}
+
+.button-3d:active {
+  transform: translateY(10px);
+  box-shadow: 0 0 0 #c0392b;
+}
+
+.button-3d:hover {
+  background: #ff5e4d;
+}
+
+.button-3d::before, .button-3d::after {
+  content: '';
+  position: absolute;
+  transition: all 0.2s ease;
+}
+
+.button-3d::before {
+  width: 160px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  bottom: -18px;
+  left: 10px;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.button-3d:active::before {
+  transform: scale(0.8);
+  bottom: -8px;
+}
+
+.button-3d::after {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent #c0392b transparent;
+  top: 60px;
+  left: 80px;
+  opacity: 0;
+}
+
+.button-3d:hover::after {
+  animation: bubble 0.6s ease infinite;
+}
+
+@keyframes bubble {
+  0% {
+    opacity: 0;
+    top: 60px;
+  }
+  50% {
+    opacity: 1;
+    top: 50px;
+  }
+  100% {
+    opacity: 0;
+    top: 20px;
+  }
+}
+
+/* Morphing Button */
+.morph-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 60px;
+  background: #9c27b0;
+  border-radius: 30px;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  cursor: pointer;
+}
+
+.morph-button:hover {
+  width: 60px;
+  background: #673ab7;
+  border-radius: 50%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  transform: rotate(360deg);
+}
+
+.morph-button .text {
+  position: absolute;
+  transition: all 0.5s ease;
+}
+
+.morph-button:hover .text {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.morph-button .icon {
+  position: absolute;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.5s ease;
+}
+
+.morph-button:hover .icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Glitch Button */
+.glitch-button {
+  position: relative;
+  display: inline-block;
+  width: 180px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: #222;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: none;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.glitch-button:hover {
+  background: #333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.glitch-button::before,
+.glitch-button::after {
+  content: 'GLITCH';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch-button::before {
+  color: #0ff;
+  z-index: -1;
+}
+
+.glitch-button::after {
+  color: #f0f;
+  z-index: -2;
+}
+
+.glitch-button:hover::before {
+  animation: glitch-anim-1 0.7s infinite;
+}
+
+.glitch-button:hover::after {
+  animation: glitch-anim-2 0.7s infinite;
+}
+
+@keyframes glitch-anim-1 {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-5px, 5px); }
+  40% { transform: translate(-5px, -5px); }
+  60% { transform: translate(5px, 5px); }
+  80% { transform: translate(5px, -5px); }
+}
+
+@keyframes glitch-anim-2 {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(5px, -5px); }
+  40% { transform: translate(5px, 5px); }
+  60% { transform: translate(-5px, -5px); }
+  80% { transform: translate(-5px, 5px); }
+}
+
+/* Pulse Button */
+.pulse-button {
+  position: relative;
+  width: 180px;
+  height: 60px;
+  border: none;
+  background: #2ecc71;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 6px #27ae60;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.pulse-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  transform: scale(0);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.pulse-button:hover {
+  background: #2ecc71;
+  box-shadow: 0 4px #27ae60;
+  transform: translateY(2px);
+}
+
+.pulse-button:hover::before {
+  animation: pulse 0.8s ease-out;
+}
+
+.pulse-button:active {
+  box-shadow: 0 0 #27ae60;
+  transform: translateY(6px);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Initialize section */
+.heading {
+  color: white;
+  font-size: 36px;
+  margin-bottom: 40px;
+  text-align: center;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+</style>
+</head>
+<body>
+  <h1 class="heading">Super Animated Buttons</h1>
+  
+  <div class="container">
+    <!-- Neon Button -->
+    <div class="button-container">
+      <div class="label">Neon Glow</div>
+      <button class="neon-button">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Neon
+      </button>
+    </div>
+    
+    <!-- Liquid Button -->
+    <div class="button-container">
+      <div class="label">Liquid Flow</div>
+      <button class="liquid-button">
+        Liquid
+      </button>
+    </div>
+    
+    <!-- 3D Button -->
+    <div class="button-container">
+      <div class="label">3D Press</div>
+      <button class="button-3d">
+        Push Me
+      </button>
+    </div>
+    
+    <!-- Morphing Button -->
+    <div class="button-container">
+      <div class="label">Shape Shifter</div>
+      <button class="morph-button">
+        <span class="text">Morph</span>
+        <span class="icon">✓</span>
+      </button>
+    </div>
+    
+    <!-- Glitch Button -->
+    <div class="button-container">
+      <div class="label">Digital Glitch</div>
+      <button class="glitch-button">
+        Glitch
+      </button>
+    </div>
+    
+    <!-- Pulse Button -->
+    <div class="button-container">
+      <div class="label">Pulsating Energy</div>
+      <button class="pulse-button">
+        Pulse
+      </button>
+    </div>
+  </div>
+</body>
+</html>
