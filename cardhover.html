@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 60px;
+  perspective: 1000px;
+}
+
+.card-container {
+  perspective: 1000px;
+  margin: 15px;
+  box-shadow:10px 10px 10px #fff;
+}
+
+.card {
+  position: relative;
+  width: 280px;
+  height: 350px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.card:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.card-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+  z-index: 1;
+}
+
+.go-corner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  background-color: #00838d;
+  border-radius: 0 10px 0 40px;
+  transition: all 0.3s ease;
+  z-index: 3;
+  cursor: pointer;
+}
+
+.go-arrow {
+  margin-top: -4px;
+  margin-right: -4px;
+  color: white;
+  font-family: courier, sans;
+  font-size: 20px;
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 25px;
+  box-sizing: border-box;
+  z-index: 2;
+  transform: translateY(70%);
+  transition: transform 0.5s ease;
+}
+
+.card-title {
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+}
+
+.card-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  margin: 0;
+  font-weight: 400;
+}
+
+.card-description {
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 15px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Hover effects */
+.card:hover .card-content {
+  transform: translateY(0);
+}
+
+.card:hover .card-description {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Different parallax effects for each card type */
+.card-container:nth-child(1) .card:hover .card-image {
+  transform: scale(1.1) translateY(-5%);
+}
+
+.card-container:nth-child(2) .card {
+  overflow: visible;
+}
+
+.card-container:nth-child(2) .card:hover {
+  transform: rotateY(-15deg);
+}
+
+.card-container:nth-child(2) .card:hover .card-image {
+  transform: translateZ(20px);
+}
+
+.card-container:nth-child(3) .card:hover {
+  transform: translateZ(30px);
+}
+
+.card-container:nth-child(3) .card:hover .card-image {
+  transform: scale(1.05);
+}
+
+.card-container:nth-child(4) .card:hover {
+  transform: rotateX(10deg);
+}
+
+.card-container:nth-child(4) .card:hover .card-image {
+  transform: translateY(-5%);
+}
+
+/* Arrow hover specific effect */
+.go-corner:hover ~ .card-content .card-description {
+  background-color: #f8fdff;
+  box-shadow: 0 5px 15px rgba(0, 131, 141, 0.2);
+}
+
+.go-corner:hover {
+  background-color: #006d75;
+}
+
+/* Making the cards interactive with the mouse movement */
+.card-container:hover .card {
+  transition: transform 0.1s ease;
+}
+</style>
+</head>
+<body>
+  <!-- Card 1: Zoom Parallax -->
+  <div class="card-container">
+    <div class="card" id="card1">
+      <div class="go-corner">
+        <div class="go-arrow">→</div>
+      </div>
+      <img src="i1.jpeg" alt="Mountain" class="card-image">
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <h3 class="card-title">Mountain Peaks</h3>
+        <p class="card-subtitle">Majestic heights of nature</p>
+        <div class="card-description">
+          Explore breathtaking mountain landscapes that reach into the clouds. These magnificent peaks offer challenging climbs and spectacular views that will leave you in awe of nature's grandeur.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 2: Depth Parallax -->
+  <div class="card-container">
+    <div class="card" id="card2">
+      <div class="go-corner">
+        <div class="go-arrow">→</div>
+      </div>
+      <img src="i2.jpeg" alt="Ocean" class="card-image">
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <h3 class="card-title">Deep Ocean</h3>
+        <p class="card-subtitle">Mysteries beneath the waves</p>
+        <div class="card-description">
+          Discover the hidden wonders of the ocean depths, where strange creatures thrive in the darkness. From bioluminescent displays to incredible adaptations, the deep sea is Earth's last great frontier.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 3: Pop-out Parallax -->
+  <div class="card-container">
+    <div class="card" id="card3">
+      <div class="go-corner">
+        <div class="go-arrow">→</div>
+      </div>
+      <img src="i3.jpeg" alt="Forest" class="card-image">
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <h3 class="card-title">Ancient Forests</h3>
+        <p class="card-subtitle">Timeless woodland realms</p>
+        <div class="card-description">
+          Walk among trees that have stood for centuries, home to countless species and filled with the whispers of the past. These ancient forests are living monuments to the resilience and beauty of our natural world.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 4: Tilt Parallax -->
+  <div class="card-container">
+    <div class="card" id="card4">
+      <div class="go-corner">
+        <div class="go-arrow">→</div>
+      </div>
+      <img src="i4.jpeg" alt="Desert" class="card-image">
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <h3 class="card-title">Desert Mirages</h3>
+        <p class="card-subtitle">Beauty in extreme landscapes</p>
+        <div class="card-description">
+          Experience the stark and stunning beauty of desert landscapes, where shifting sands create ever-changing sculptures and life finds extraordinary ways to survive in the most challenging conditions on Earth.
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Add dynamic parallax effect based on mouse movement
+  document.querySelectorAll('.card-container').forEach(container => {
+    const card = container.querySelector('.card');
+    const image = card.querySelector('.card-image');
+    
+    container.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left; // x position within the element
+      const y = e.clientY - rect.top;  // y position within the element
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const deltaX = (x - centerX) / 25;
+      const deltaY = (y - centerY) / 25;
+      
+      card.style.transform = `rotateY(${deltaX}deg) rotateX(${-deltaY}deg)`;
+      image.style.transform = `translateX(${-deltaX * 1.5}px) translateY(${-deltaY * 1.5}px)`;
+    });
+    
+    container.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      image.style.transform = '';
+    });
+  });
+</script>
+</body>
+</html>
