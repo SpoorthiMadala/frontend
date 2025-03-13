@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Card with Dynamic Background</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      background-color: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .time-card {
+      width: 320px;
+      height: 160px;
+      background-color: #1e3352;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      transition: background-color 2s ease;
+    }
+    
+    .time-content {
+      padding: 25px;
+      color: white;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .time {
+      font-size: 42px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    
+    .date {
+      font-size: 18px;
+    }
+    
+    .time-indicator {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      z-index: 2;
+    }
+    
+    .moon-icon {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+    
+    .sun-icon {
+      width: 24px;
+      height: 24px;
+      fill: #FFD700;
+      display: none;
+    }
+    
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+    
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      animation: twinkle 4s infinite;
+    }
+    
+    @keyframes twinkle {
+      0% { opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { opacity: 0.3; }
+    }
+    
+    .clouds {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+    
+    .cloud {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50px;
+      animation: float 20s infinite linear;
+    }
+    
+    @keyframes float {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+  </style>
+</head>
+<body>
+  <div class="time-card">
+    <div class="background"></div>
+    <div class="stars" id="stars"></div>
+    <div class="clouds" id="clouds"></div>
+    <div class="time-indicator">
+      <svg class="moon-icon" viewBox="0 0 24 24">
+        <path d="M12.5,2c-5.5,0-10,4.5-10,10s4.5,10,10,10s10-4.5,10-10S18,2,12.5,2z M12.5,18.5c-3.6,0-6.5-2.9-6.5-6.5 s2.9-6.5,6.5-6.5s6.5,2.9,6.5,6.5S16.1,18.5,12.5,18.5z M8,12c0-2.5,2-4.5,4.5-4.5V12H8z"></path>
+      </svg>
+      <svg class="sun-icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+    </div>
+    <div class="time-content">
+      <div class="time" id="time">00:00</div>
+      <div class="date" id="date">Day, Month 00th</div>
+    </div>
+  </div>
+
+  <script>
+    // Create stars
+    function createStars() {
+      const starsContainer = document.getElementById('stars');
+      const numberOfStars = 50;
+      
+      for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.width = Math.random() * 2 + 'px';
+        star.style.height = star.style.width;
+        star.style.top = Math.random() * 100 + '%';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 4 + 's';
+        starsContainer.appendChild(star);
+      }
+    }
+    
+    // Create clouds
+    function createClouds() {
+      const cloudsContainer = document.getElementById('clouds');
+      const numberOfClouds = 5;
+      
+      for (let i = 0; i < numberOfClouds; i++) {
+        const cloud = document.createElement('div');
+        cloud.classList.add('cloud');
+        cloud.style.width = (Math.random() * 60 + 40) + 'px';
+        cloud.style.height = (Math.random() * 20 + 10) + 'px';
+        cloud.style.top = (Math.random() * 60 + 10) + '%';
+        cloud.style.left = (Math.random() * 20) + '%';
+        cloud.style.animationDuration = (Math.random() * 30 + 20) + 's';
+        cloud.style.animationDelay = (Math.random() * 10) + 's';
+        cloudsContainer.appendChild(cloud);
+      }
+    }
+    
+    // Update time and date
+    function updateTimeAndDate() {
+      const now = new Date();
+      
+      // Format time as HH:MM
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      
+      hours = hours % 12;
+      hours = hours ? hours : 12; // Convert 0 to 12
+      const hoursStr = hours.toString().padStart(2, '0');
+      
+      document.getElementById('time').textContent = `${hoursStr}:${minutes} ${ampm}`;
+      
+      // Format date as Day, Month 00th
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      
+      const day = days[now.getDay()];
+      const month = months[now.getMonth()];
+      const date = now.getDate();
+      
+      // Add suffix to date
+      let suffix = 'th';
+      if (date === 1 || date === 21 || date === 31) {
+        suffix = 'st';
+      } else if (date === 2 || date === 22) {
+        suffix = 'nd';
+      } else if (date === 3 || date === 23) {
+        suffix = 'rd';
+      }
+      
+      document.getElementById('date').textContent = `${day}, ${month} ${date}${suffix}`;
+      
+      // Update background based on time
+      updateBackground(now.getHours());
+    }
+    
+    // Update background based on time of day
+    function updateBackground(hour) {
+      const card = document.querySelector('.time-card');
+      const stars = document.querySelector('.stars');
+      const clouds = document.querySelector('.clouds');
+      const moonIcon = document.querySelector('.moon-icon');
+      const sunIcon = document.querySelector('.sun-icon');
+      
+      // Early morning (5-8)
+      if (hour >= 5 && hour < 8) {
+        card.style.backgroundColor = '#6a7d97';
+        stars.style.opacity = '0';
+        clouds.style.opacity = '0.7';
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'block';
+      }
+      // Morning (8-12)
+      else if (hour >= 8 && hour < 12) {
+        card.style.backgroundColor = '#4c71b6';
+        stars.style.opacity = '0';
+        clouds.style.opacity = '0.7';
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'block';
+      }
+      // Afternoon (12-16)
+      else if (hour >= 12 && hour < 16) {
+        card.style.backgroundColor = '#2d55a3';
+        stars.style.opacity = '0';
+        clouds.style.opacity = '0.5';
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'block';
+      }
+      // Evening (16-20)
+      else if (hour >= 16 && hour < 20) {
+        card.style.backgroundColor = '#1e3766';
+        stars.style.opacity = '0.2';
+        clouds.style.opacity = '0.3';
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'block';
+      }
+      // Night (20-5)
+      else {
+        card.style.backgroundColor = '#1e3352';
+        stars.style.opacity = '1';
+        clouds.style.opacity = '0';
+        moonIcon.style.display = 'block';
+        sunIcon.style.display = 'none';
+      }
+    }
+    
+    // Initialize
+    function init() {
+      createStars();
+      createClouds();
+      updateTimeAndDate();
+      
+      // Update every second
+      setInterval(updateTimeAndDate, 1000);
+    }
+    
+    // Start when page loads
+    window.onload = init;
+  </script>
+</body>
+</html>
