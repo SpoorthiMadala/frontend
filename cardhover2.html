@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Hover Card</title>
+    <style>
+      /* Modified from Uiverse.io by joe-watson-sbf */ 
+      body{
+        text-align:center;
+         background-color:#000;
+padding:50px 250px;}
+
+      .card {
+        width: 510px;
+        height: 354px;
+        border-radius: 4px;
+        
+        display: flex;
+        gap: 5px;
+        padding: .4em;
+      }
+      
+      .card .panel {
+        height: 100%;
+        flex: 1;
+        overflow: hidden;
+        cursor: pointer;
+        border-radius: 2px;
+        transition: all .5s;
+        
+        border-width: 1px;
+     border-style: solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      
+      .card .panel:hover {
+        flex: 4;
+      }
+      
+      .card .panel img {
+        min-height: 100%;
+        min-width: 100%;
+        object-fit: cover;
+        transform: rotate(0deg) scale(0.8);
+        transition: all .5s;
+      }
+      
+      .card .panel:hover img {
+        transform: rotate(0) scale(1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="panel">
+        <img src="i1.jpeg" alt="Image 1" />
+      </div>
+      <div class="panel">
+        <img src="i2.jpeg" alt="Image 2" />
+      </div>
+      <div class="panel">
+        <img src="i3.jpeg" alt="Image 3" />
+      </div>
+      <div class="panel">
+        <img src="i4.jpeg" alt="Image 3" />
+      </div>
+      <div class="panel">
+        <img src="i5.jpeg" alt="Image 3" />
+      </div>
+      <div class="panel">
+        <img src="i6.jpeg" alt="Image 3" />
+      </div>
+
+    </div>
+  </body>
+</html>
