@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Animated Navigation Bars Collection</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: #000;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    
+    .navbar-container {
+      margin-bottom: 4rem;
+      border-radius: 10px;
+      padding: 2rem;
+      background: white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    h2 {
+      margin-bottom: 1.5rem;
+      color: #333;
+      font-size: 1.5rem;
+    }
+    
+    /* Circular Navigation */
+    .nav-circular {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    
+    .nav-circular li {
+      list-style: none;
+      margin: 0 15px;
+    }
+    
+    .nav-circular a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #333;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-circular a:hover {
+      transform: translateY(-10px);
+      background: #ff4d6d;
+      box-shadow: 0 10px 25px rgba(255, 77, 109, 0.5);
+    }
+    
+    /* Square Navigation */
+    .nav-square {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    
+    .nav-square li {
+      list-style: none;
+      margin: 0 15px;
+    }
+    
+    .nav-square a {
+      display: block;
+      width: 80px;
+      height: 80px;
+      background: #333;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-radius: 5px;
+    }
+    
+    .nav-square a:hover {
+      transform: rotate(45deg);
+      background: #4361ee;
+    }
+    
+    .nav-square a:hover span {
+      transform: rotate(-45deg);
+    }
+    
+    /* Glass Navigation */
+    .nav-glass {
+      display: flex;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 50px;
+      padding: 10px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      margin: 1rem auto;
+      width: fit-content;
+    }
+    
+    .nav-glass li {
+      list-style: none;
+      margin: 0 15px;
+    }
+    
+    .nav-glass a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 10px 15px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-glass a:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .nav-glass a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: #4cc9f0;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-glass a:hover::before {
+      width: 100%;
+    }
+    
+    /* Underline Navigation */
+    .nav-underline {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    
+    .nav-underline li {
+      list-style: none;
+      margin: 0 20px;
+    }
+    
+    .nav-underline a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      position: relative;
+      padding: 5px 0;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-underline a::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 3px;
+      bottom: 0;
+      left: 0;
+      background-color: #4895ef;
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+    
+    .nav-underline a:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+    
+    /* Bubble Navigation */
+    .nav-bubble {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    
+    .nav-bubble li {
+      list-style: none;
+      margin: 0 10px;
+      position: relative;
+    }
+    
+    .nav-bubble a {
+      display: block;
+      padding: 10px 20px;
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      background: transparent;
+      border-radius: 30px;
+      z-index: 1;
+      position: relative;
+    }
+    
+    .nav-bubble a:hover {
+      color: white;
+    }
+    
+    .nav-bubble a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ff7d00;
+      border-radius: 30px;
+      transform: scale(0);
+      transition: transform 0.3s ease;
+      z-index: -1;
+    }
+    
+    .nav-bubble a:hover::before {
+      transform: scale(1);
+    }
+    
+    /* Border Animated Navigation */
+    .nav-border {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    
+    .nav-border li {
+      list-style: none;
+      margin: 0 20px;
+    }
+    
+    .nav-border a {
+      display: block;
+      padding: 10px 20px;
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-border a::before,
+    .nav-border a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+    
+    .nav-border a::before {
+      bottom: 0;
+      left: 0;
+      border-left: 2px solid #3a86ff;
+      border-bottom: 2px solid #3a86ff;
+    }
+    
+    .nav-border a::after {
+      top: 0;
+      right: 0;
+      border-right: 2px solid #3a86ff;
+      border-top: 2px solid #3a86ff;
+    }
+    
+    .nav-border a:hover::before,
+    .nav-border a:hover::after {
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+    }
+    
+    /* Neon Navigation */
+    .nav-neon {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    
+    .nav-neon li {
+      list-style: none;
+      margin: 0 20px;
+    }
+    
+    .nav-neon a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 10px 20px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-neon a:hover {
+      color: #0ff;
+      text-shadow: 0 0 5px #0ff, 0 0 15px #0ff, 0 0 30px #0ff;
+    }
+    
+    .nav-neon a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 2px;
+      background: #0ff;
+      transition: all 0.5s ease;
+      box-shadow: 0 0 5px #0ff, 0 0 15px #0ff;
+    }
+    
+    .nav-neon a:hover::before {
+      left: 0;
+    }
+    
+    /* 3D Navigation */
+    .nav-3d {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    
+    .nav-3d li {
+      list-style: none;
+      margin: 0 15px;
+    }
+    
+    .nav-3d a {
+      display: block;
+      padding: 15px 25px;
+      background: #4cc9f0;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      transform-style: preserve-3d;
+      position: relative;
+      box-shadow: 0 5px 0 #3a86ff;
+    }
+    
+    .nav-3d a:hover {
+      transform: translateY(5px);
+      box-shadow: 0 0 0 #3a86ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Animated Navigation Bar Styles</h1>
+    
+    <!-- Circular Navigation -->
+    <div class="navbar-container">
+      <h2>1. Circular Navigation</h2>
+      <ul class="nav-circular">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Work</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    
+    <!-- Square Navigation -->
+    <div class="navbar-container">
+      <h2>2. Square Navigation with Rotation</h2>
+      <ul class="nav-square">
+        <li><a href="#"><span>Home</span></a></li>
+        <li><a href="#"><span>About</span></a></li>
+        <li><a href="#"><span>Work</span></a></li>
+        <li><a href="#"><span>Blog</span></a></li>
+        <li><a href="#"><span>Contact</span></a></li>
+      </ul>
+    </div>
+    
+    <!-- Glass Navigation -->
+    <div class="navbar-container" style="background: linear-gradient(135deg, #6c5ce7, #a29bfe);">
+      <h2 style="color: white;">3. Glass Morphism Navigation</h2>
+      <ul class="nav-glass">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    
+    <!-- Underline Navigation -->
+    <div class="navbar-container">
+      <h2>4. Animated Underline Navigation</h2>
+      <ul class="nav-underline">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    
+    <!-- Bubble Navigation -->
+    <div class="navbar-container">
+      <h2>5. Bubble Effect Navigation</h2>
+      <ul class="nav-bubble">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    
+    <!-- Border Animated Navigation -->
+    <div class="navbar-container">
+      <h2>6. Border Animation Navigation</h2>
+      <ul class="nav-border">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    
+    <!-- Neon Navigation -->
+    <div class="navbar-container">
+      <h2>7. Neon Effect Navigation</h2>
+      <ul class="nav-neon">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    
+    <!-- 3D Navigation -->
+    <div class="navbar-container">
+      <h2>8. 3D Button Navigation</h2>
+      <ul class="nav-3d">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
