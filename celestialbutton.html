@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Celestial Elements</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #0a0a1a;
+      font-family: Arial, sans-serif;
+      gap: 2rem;
+      flex-wrap: wrap;
+      padding: 2rem;
+    }
+
+    /* Base button styles */
+    .box {
+      position: relative;
+      outline: 1px solid;
+      margin: 1rem;
+      width: 200px;
+      height: 80px;
+      overflow: hidden;
+    }
+
+    .button {
+      font-weight: 600;
+      font-size: 1.5rem;
+      letter-spacing: 0.2rem;
+      background: transparent;
+      padding: 1rem;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      text-shadow: 2px 0px, 0px 2px, -2px 0px, 0px -2px;
+      z-index: 10;
+      position: relative;
+    }
+
+    .celestial-bg {
+      width: 100%;
+      height: 100%;
+      bottom: 0%;
+      transition: 0.5s ease-in-out;
+      z-index: -1;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      display: flex;
+    }
+
+    .box:hover .celestial-bg {
+      opacity: 1;
+    }
+
+    /* SPACE button */
+    .space-box {
+      --clr-shadow__border: #d9a1ff;
+      --clr-text: #F6F4EB;
+      --clr-space: #120e1e;
+      --clr-space-gr: #271950;
+      --clr-star: #E9F8F9;
+    }
+
+    .space-button {
+      color: var(--clr-text);
+      text-shadow: 2px 0px var(--clr-shadow__border), 0px 2px var(--clr-shadow__border), 
+                  -2px 0px var(--clr-shadow__border), 0px -2px var(--clr-shadow__border);
+    }
+
+    .space-bg {
+      gap: 1.5rem;
+      background: linear-gradient(160deg, var(--clr-space), var(--clr-space-gr));
+    }
+
+    .star {
+      height: 4rem;
+      width: 0.3rem;
+      transition: 0.5s;
+      border-radius: 50px;
+      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+      position: relative;
+      background-color: var(--clr-star);
+      animation: space-animation calc(0.1s * var(--i)) linear infinite;
+    }
+
+    @keyframes space-animation {
+      0% {
+        transform: rotate(-30deg) translateY(calc(-52% * var(--i)));
+      }
+      100% {
+        transform: rotate(-30deg) translateY(calc(52% * var(--i)));
+      }
+    }
+
+    /* PLANETS button */
+    .planets-box {
+      --clr-shadow__border: #36a3ff;
+      --clr-text: #d7f3ff;
+      --clr-bg: #082b46;
+      --clr-bg-gr: #061c2e;
+      --clr-planet1: #ff7b6b;
+      --clr-planet2: #9d60ff;
+      --clr-planet3: #36d6ff;
+    }
+
+    .planets-button {
+      color: var(--clr-text);
+      text-shadow: 2px 0px var(--clr-shadow__border), 0px 2px var(--clr-shadow__border), 
+                  -2px 0px var(--clr-shadow__border), 0px -2px var(--clr-shadow__border);
+    }
+
+    .planets-bg {
+      background: linear-gradient(160deg, var(--clr-bg), var(--clr-bg-gr));
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .planet {
+      border-radius: 50%;
+      position: absolute;
+      box-shadow: inset -10px -10px 15px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.2);
+      animation: orbit linear infinite;
+    }
+
+    .planet.one {
+      width: 25px;
+      height: 25px;
+      background: var(--clr-planet1);
+      animation-duration: 8s;
+      left: 20%;
+    }
+
+    .planet.two {
+      width: 40px;
+      height: 40px;
+      background: var(--clr-planet2);
+      animation-duration: 12s;
+      left: 50%;
+    }
+
+    .planet.three {
+      width: 30px;
+      height: 30px;
+      background: var(--clr-planet3);
+      animation-duration: 6s;
+      left: 70%;
+    }
+
+    @keyframes orbit {
+      0% { transform: translateY(-40px) rotate(0deg); }
+      50% { transform: translateY(40px) rotate(180deg); }
+      100% { transform: translateY(-40px) rotate(360deg); }
+    }
+
+    /* NEBULA button */
+    .nebula-box {
+      --clr-shadow__border: #ff5ebc;
+      --clr-text: #fff1f8;
+      --clr-bg: #2a0042;
+      --clr-bg-gr: #16002a;
+      --clr-dust1: rgba(255, 94, 188, 0.4);
+      --clr-dust2: rgba(168, 94, 255, 0.4);
+    }
+
+    .nebula-button {
+      color: var(--clr-text);
+      text-shadow: 2px 0px var(--clr-shadow__border), 0px 2px var(--clr-shadow__border), 
+                  -2px 0px var(--clr-shadow__border), 0px -2px var(--clr-shadow__border);
+    }
+
+    .nebula-bg {
+      background: linear-gradient(160deg, var(--clr-bg), var(--clr-bg-gr));
+      position: relative;
+    }
+
+    .dust {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(10px);
+      animation: float 20s ease-in-out infinite alternate;
+    }
+
+    .dust1 {
+      width: 100px;
+      height: 100px;
+      background-color: var(--clr-dust1);
+      top: -30px;
+      left: 20px;
+      animation-delay: -5s;
+    }
+
+    .dust2 {
+      width: 130px;
+      height: 130px;
+      background-color: var(--clr-dust2);
+      bottom: -40px;
+      right: -30px;
+      animation-delay: -12s;
+    }
+
+    .dust3 {
+      width: 80px;
+      height: 80px;
+      background-color: var(--clr-dust1);
+      bottom: 10px;
+      left: 30px;
+      animation-delay: -8s;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(10px, 10px) scale(1.1); }
+      100% { transform: translate(-10px, -10px) scale(0.9); }
+    }
+
+    /* GALAXY button */
+    .galaxy-box {
+      --clr-shadow__border: #ffcb5e;
+      --clr-text: #fff8e8;
+      --clr-bg: #2a1500;
+      --clr-bg-gr: #130a00;
+      --clr-galaxy: #ffcb5e;
+    }
+
+    .galaxy-button {
+      color: var(--clr-text);
+      text-shadow: 2px 0px var(--clr-shadow__border), 0px 2px var(--clr-shadow__border), 
+                  -2px 0px var(--clr-shadow__border), 0px -2px var(--clr-shadow__border);
+    }
+
+    .galaxy-bg {
+      background: linear-gradient(160deg, var(--clr-bg), var(--clr-bg-gr));
+      justify-content: center;
+      align-items: center;
+    }
+
+    .spiral {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      animation: rotate 8s linear infinite;
+    }
+
+    .arm {
+      position: absolute;
+      width: 2px;
+      height: 50px;
+      background: var(--clr-galaxy);
+      top: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      box-shadow: 0 0 10px 2px var(--clr-galaxy);
+      opacity: 0.7;
+    }
+
+    .arm:nth-child(1) { transform: rotate(0deg) translateY(-25px) scaleY(1); }
+    .arm:nth-child(2) { transform: rotate(60deg) translateY(-25px) scaleY(0.9); }
+    .arm:nth-child(3) { transform: rotate(120deg) translateY(-25px) scaleY(0.8); }
+    .arm:nth-child(4) { transform: rotate(180deg) translateY(-25px) scaleY(0.9); }
+    .arm:nth-child(5) { transform: rotate(240deg) translateY(-25px) scaleY(0.7); }
+    .arm:nth-child(6) { transform: rotate(300deg) translateY(-25px) scaleY(0.8); }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* BLACK HOLE button */
+    .blackhole-box {
+      --clr-shadow__border: #66a3ff;
+      --clr-text: #e8f1ff;
+      --clr-bg: #000733;
+      --clr-bg-gr: #000415;
+      --clr-ring: #66a3ff;
+      --clr-hole: #000000;
+    }
+
+    .blackhole-button {
+      color: var(--clr-text);
+      text-shadow: 2px 0px var(--clr-shadow__border), 0px 2px var(--clr-shadow__border), 
+                  -2px 0px var(--clr-shadow__border), 0px -2px var(--clr-shadow__border);
+    }
+
+    .blackhole-bg {
+      background: linear-gradient(160deg, var(--clr-bg), var(--clr-bg-gr));
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hole-container {
+      position: relative;
+      width: 70px;
+      height: 70px;
+    }
+
+    .event-horizon {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      background: var(--clr-hole);
+      border-radius: 50%;
+      box-shadow: 0 0 20px 5px rgba(102, 163, 255, 0.3);
+      z-index: 2;
+    }
+
+    .accretion-disk {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      top: -15px;
+      left: -15px;
+      border: 2px solid var(--clr-ring);
+      border-radius: 50%;
+      animation: rotate 4s linear infinite;
+      box-shadow: 0 0 15px var(--clr-ring);
+      opacity: 0.7;
+      transform: rotateX(70deg);
+    }
+
+    .energy-beam {
+      position: absolute;
+      width: 4px;
+      height: 100px;
+      background: linear-gradient(to top, transparent, var(--clr-ring));
+      left: 33px;
+      top: -100px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; height: 100px; }
+      50% { opacity: 0.7; height: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- SPACE button -->
+  <div class="box space-box">
+    <button class="button space-button">SPACE</button>
+    <div class="celestial-bg space-bg">
+      <span style="--i: 31" class="star"></span>
+      <span style="--i: 12" class="star"></span>
+      <span style="--i: 57" class="star"></span>
+      <span style="--i: 93" class="star"></span>
+      <span style="--i: 23" class="star"></span>
+      <span style="--i: 70" class="star"></span>
+      <span style="--i: 6" class="star"></span>
+    </div>
+  </div>
+
+  <!-- PLANETS button -->
+  <div class="box planets-box">
+    <button class="button planets-button">PLANETS</button>
+    <div class="celestial-bg planets-bg">
+      <div class="planet one"></div>
+      <div class="planet two"></div>
+      <div class="planet three"></div>
+    </div>
+  </div>
+
+
+
+  <!-- GALAXY button -->
+  <div class="box galaxy-box">
+    <button class="button galaxy-button">GALAXY</button>
+    <div class="celestial-bg galaxy-bg">
+      <div class="spiral">
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLACK HOLE button -->
+  <div class="box blackhole-box">
+    <button class="button blackhole-button">BLACK HOLE</button>
+    <div class="celestial-bg blackhole-bg">
+      <div class="hole-container">
+        <div class="accretion-disk"></div>
+        <div class="event-horizon"></div>
+        <div class="energy-beam"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
